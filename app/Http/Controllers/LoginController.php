@@ -95,6 +95,7 @@ class LoginController extends Controller {
 
 		
 		if(count((array)$user)>0){
+			session(['usuario' => $request->usuario]); //usando el helper
 			return "1";
 		}
 
@@ -121,6 +122,7 @@ class LoginController extends Controller {
 				]
 			);
             $file->move($destinationPath,$request->usuario.".".$file->getClientOriginalExtension());
+			
 			return "1";
         }
         else
@@ -137,6 +139,26 @@ class LoginController extends Controller {
 		else
 			return "2";
 
+    }
+
+	public function editar(Request $request){
+		$usuario = session('usuario'); //usando el helper
+		$user = Usuario::find($usuario);
+		if($user != null)
+			$user = $user->where('pass', '=',$request->pass)->get();
+
+		
+		if(count((array)$user)>0){
+			if($request->passN == $request->pass2N)
+				DB::table('usuarios')
+            		->where('id', $usuario)
+            		->update(['pass' => $request->passN]);
+				return "1";
+		}
+
+		else
+			return "2";
 	}
+
 
 }

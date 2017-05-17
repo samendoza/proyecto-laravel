@@ -3,8 +3,9 @@ function editarPerfil(event){
       //$("#fmEditar").submit(function(event){ //al dar clic en enviar:
 
         event.preventDefault(); //previene que el formulario se procese como lo hace normalmente 
-
+        var token = $('meta[name="_token"]').attr('content');
         var formData = new FormData($(".fmEditar")[0]);
+        formData.append("_token",token);
         formData.append("peticion","modificar");
 
         var $form = $( this ), // crea una variable form que apunta al formulario                
@@ -31,7 +32,7 @@ function editarPerfil(event){
                 alert(data);
                 if(data == "1"){
                     alert("Contraseña cambiada con éxito, vuelva a iniciar la sesion");
-                    $(location).attr('href',"controladores/logout.php");
+                    $(location).attr('href',"/logout");
                 }
                 else if(data == "2"){
                     alert("Error al cambiar su contraseña");
