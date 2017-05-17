@@ -43,8 +43,11 @@ function agregar(event){
     var formData = new FormData($(".fmAddCont")[0]);
     formData.append("peticion","agregar");
 
+     var token = $('meta[name="_token"]').attr('content');
+     formData.append("_token",token);
+
     $.ajax({
-        url: 'controladores/ctrlContacto.php',  
+        url: 'contactos/agregar',  
         type: 'POST',
         //datos del formulario
         data: formData,
