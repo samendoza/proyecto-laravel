@@ -10,10 +10,38 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use App\Usuario;
+//use DB;
 
 Route::get('/', 'WelcomeController@index');
 
-Route::get('home', 'HomeController@index');
+Route::post('login', 'LoginController@inicio');
+
+	//$usuarios = Usuario::all();
+	/*foreach ($usuarios as $usuario) {
+    	echo $usuario->pass;
+	}*/
+
+	//$users = DB::table('usuarios')->select('usuario')->where('usuario','=','saul')->where('pass','=','123')->get();
+	//return $users;
+	
+	/*$users = DB::table('usuarios')
+					->select('count(*)')
+					->where([
+    						['usuario', '=', $usuario],
+    						['pass', '=', $pass]])
+					->get();
+		//return $users;
+		//$resultado = Usuario::inicioSesion($request -> usuario , $request -> pass);
+		return $users->usuario;*/
+
+//});
+
+//Route::post('login', 'LoginController@inicio');
+
+/*Route::get('home', 'HomeController@index');*/
+
+
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
