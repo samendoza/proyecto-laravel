@@ -19,6 +19,12 @@ Route::post('login', 'LoginController@inicio');
 Route::get('home', function(){
 	return view('home');
 });
+
+
+Route::get('/contactos', 'ContactosController@busqueda');
+Route::post('/contactos/eliminar', 'ContactosController@eliminar');
+
+
 	//$usuarios = Usuario::all();
 	/*foreach ($usuarios as $usuario) {
     	echo $usuario->pass;

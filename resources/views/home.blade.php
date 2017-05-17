@@ -4,6 +4,7 @@
         <title> Página de prueba </title>
         <meta name="description" content="Página de prueba para uso de jquery y php">
         <meta name="keywords" content="HTML5, PHP, Jquery">
+        <meta name="_token" content="{{ csrf_token() }}">
         <!--<Link rel="stylesheet href="default.css"-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="js/contacto.js"></script>

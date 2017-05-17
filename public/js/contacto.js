@@ -5,9 +5,12 @@
 function busqueda(){
     var busqueda = $(":input[name='busqueda']").val();
     var categoria = $("input[name='categoria']:checked").val();
-    var posting = $.get( "controladores/ctrlContacto.php", {busqueda:busqueda, categoria:categoria, peticion: "buscar"});
+    var posting = $.get( "/contactos", {busqueda:busqueda, categoria:categoria, peticion: "buscar"});
     posting.done(function( data ) {
-        $("#respuesta").show().html(data);
+        alert(data);
+        var resp ="";
+        
+        $("#respuesta").show().html( data);
     });
 }
 
@@ -18,13 +21,14 @@ function busqueda(){
 function eliminar(btn){
     var valor = btn.value;
     var mensaje = confirm("¿Está seguro que desea eliminar este contacto?");
-    
+    var token = $('meta[name="_token"]').attr('content');
     if (mensaje) {
-        var posting = $.post( "controladores/ctrlContacto.php", {valor: valor, peticion: "eliminar"});
+        var posting = $.post( "/contactos/eliminar", {valor: valor, peticion: "eliminar", _token:token});
         posting.done(function( data ) {
-            alert(data);
+            //alert(data);
             busqueda();
         });
+     //$(btn).parent('tr').fadeOut();
     }            
 }
 
