@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 
 use Illuminate\Http\Request;
 use App\Contacto;
@@ -109,6 +110,33 @@ class ContactosController extends Controller {
 	public function eliminar(Request $req){
 		DB::table('contactos')->where('idContacto', '=', $req->valor)->delete();
 		return "";
+	}
+
+	public function agregar(Request $req){
+
+		$destinationPath = 'img/fotosContacto/';
+		$file = $req->file('foto');
+		$nuevaDireccion = $destinationPath.$req->nombre."_".$req->tel."_".$file->getClientOriginalName();
+		
+
+		DB::table('contactos')->insert(
+			[
+				'idUsuario'   => 'saul',
+				'nombre' 	  => $req->nombre,
+				'tel' 	      => $req->tel,
+				'cel' 	 	  => $req->cel,
+				'direccion'   => $req->dir,
+				'fotoContacto'=> $nuevaDireccion,
+				'email'       => $req->email
+			]
+		);
+
+		
+		
+		$file->move($destinationPath,$req->nombre."_".$req->tel."_".$file->getClientOriginalName());
+		return "si";
+		//Move Uploaded File
+		
 	}
 
 }

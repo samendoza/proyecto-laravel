@@ -26,6 +26,6 @@
 			<input type="submit" value="Iniciar sesion"> </input>
 		</form>
 		<div id="avisoSes"></div>
-		<a href="Registro.php"> Registrarme </a>
+		<a href="/registro"> Registrarme </a>
 	</body>
 </html>

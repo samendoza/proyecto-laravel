@@ -23,6 +23,15 @@ Route::get('home', function(){
 
 Route::get('/contactos', 'ContactosController@busqueda');
 Route::post('/contactos/eliminar', 'ContactosController@eliminar');
+Route::post('/contactos/agregar', 'ContactosController@agregar');
+Route::get('/registro', function(){
+	return view('registro');
+});
+
+Route::post('/verificar','LoginController@verificar');
+Route::post('/registrar', 'LoginController@registrar');
+
+//Route::post('/registro/{user}', 'LoginController@verificarUsuario');
 
 
 	//$usuarios = Usuario::all();

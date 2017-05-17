@@ -3,6 +3,7 @@
 use App\Usuario;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 
 use Illuminate\Http\Request;
 use DB;
@@ -103,6 +104,39 @@ class LoginController extends Controller {
 
 		//return $user;
 		//return "inicie sesion";
+	}
+
+	public function registrar(Request $request){
+
+		$destinationPath = 'img/fotosUsuario/';
+		$file = $request->file('foto');
+		$nuevaDireccion = $destinationPath.$request->usuario.".".$file->getClientOriginalExtension();
+
+		if($request->pass == $request->pass2){
+        	DB::table('usuarios')->insert(
+				[
+					'id'	 => $request->usuario,
+					'pass' 	     => $request->pass,
+					'fotoUsuario'=> $nuevaDireccion
+				]
+			);
+            $file->move($destinationPath,$request->usuario.".".$file->getClientOriginalExtension());
+			return "1";
+        }
+        else
+			return "3";
+	}
+
+	public function verificar(Request $request){
+		//echo $request->usuario;
+		$user = Usuario::find($request->usuario);
+		if(count((array)$user)>0){
+			return "1";
+		}
+
+		else
+			return "2";
+
 	}
 
 }
