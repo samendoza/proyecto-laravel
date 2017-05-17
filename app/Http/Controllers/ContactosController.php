@@ -85,7 +85,9 @@ class ContactosController extends Controller {
 	}
 
 	public function busqueda(Request $req){
-		$contactos = DB::table('contactos')->where('idUsuario', 'saul')->get();
+
+		$usuario = session('usuario'); //usando el helper
+		$contactos = DB::table('contactos')->where('idUsuario', $usuario)->get();
 		
 		$resp = "<table><tr><td>Nombre</td><td>Correo</td><td>Tel fijo</td><td>Celular</td><td>Dirección</td><td>Foto</td><td>Eliminar</td></tr>";
 
@@ -117,11 +119,11 @@ class ContactosController extends Controller {
 		$destinationPath = 'img/fotosContacto/';
 		$file = $req->file('foto');
 		$nuevaDireccion = $destinationPath.$req->nombre."_".$req->tel."_".$file->getClientOriginalName();
-		
+		$usuario = session('usuario'); //usando el helper
 
 		DB::table('contactos')->insert(
 			[
-				'idUsuario'   => 'saul',
+				'idUsuario'   => $usuario,
 				'nombre' 	  => $req->nombre,
 				'tel' 	      => $req->tel,
 				'cel' 	 	  => $req->cel,
@@ -131,8 +133,6 @@ class ContactosController extends Controller {
 			]
 		);
 
-		
-		
 		$file->move($destinationPath,$req->nombre."_".$req->tel."_".$file->getClientOriginalName());
 		return "si";
 		//Move Uploaded File

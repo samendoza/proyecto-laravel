@@ -15,7 +15,7 @@
 
                 $("#cerrarSesion").click(function(){
                     alert("Salir sesion");
-                    $(location).attr('href',"controladores/logout.php");
+                    $(location).attr('href',"/logout");
                 });
 
                 $("#editarPerfil").click(function(){
@@ -63,7 +63,7 @@
 
         <div>
             <header>
-                <h1> Bienvenido(a) <?php //echo $_SESSION['usuario']; ?> </h1> 
+                <h1> Bienvenido(a) {{session('usuario')}}</h1> 
             <?php
                     //echo "<img src='".$_SESSION['foto']."' style='height: 100px; width:100px;'></img>";
                 ?>  

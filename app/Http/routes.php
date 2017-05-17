@@ -30,6 +30,15 @@ Route::get('/registro', function(){
 
 Route::post('/verificar','LoginController@verificar');
 Route::post('/registrar', 'LoginController@registrar');
+Route::get('/logout', function(){
+	Session::flush(); // removes all session data
+	session()->regenerate();
+	return Redirect::action('WelcomeController@index');
+} );
+
+Route::post('/perfil/editar', 'LoginController@editar');
+
+
 
 //Route::post('/registro/{user}', 'LoginController@verificarUsuario');
 
