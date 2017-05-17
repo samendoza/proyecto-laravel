@@ -16,7 +16,9 @@ use App\Usuario;
 Route::get('/', 'WelcomeController@index');
 
 Route::post('login', 'LoginController@inicio');
-
+Route::get('home', function(){
+	return view('home');
+});
 	//$usuarios = Usuario::all();
 	/*foreach ($usuarios as $usuario) {
     	echo $usuario->pass;

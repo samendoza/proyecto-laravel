@@ -87,8 +87,21 @@ class LoginController extends Controller {
 		//$res =   Usuario::inicioSesion($request->usuario, $request->pass);
 		//$users = DB::table('usuarios')->select('usuario')->where('usuario','=','saul')->where('pass','=','123')->get();
 		//echo $request->usuario;
+		
 		$user = Usuario::find($request->usuario);
-		return $user;
+		if($user != null)
+			$user = $user->where('pass', '=',$request->pass)->get();
+
+		
+		if(count((array)$user)>0){
+			return "1";
+		}
+
+		else
+			return "2";
+			
+
+		//return $user;
 		//return "inicie sesion";
 	}
 
