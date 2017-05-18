@@ -23,7 +23,9 @@ function busqueda(){
 
     $.getJSON( "/contactos", {busqueda:busqueda, categoria:categoria, peticion: "buscar"} )
     .done(function( json ) {
-        console.log( "JSON Data: " + json[ 0 ].nombre );
+
+        //DESCOMENTAR
+       /* console.log( "JSON Data: " + json[ 0 ].nombre );
          $.each(json, function(i, contacto) {
             var $tr = $('<tr>').append(
                 $('<td>').text(contacto.nombre),
@@ -36,13 +38,15 @@ function busqueda(){
                                            .css('width', '60px')),
                 $('<td>').append($('<button>').val(contacto.idContacto)
                                               .attr('onclick', 'eliminar(this)')
+                                              .attr('class', 'borrar')
                                               .text("Eliminar contacto"))
             ); 
             var $tbl = $tr.appendTo('#respuesta');
            // console.log($tr.wrap('<p>').html());
         });
          $("#respuesta").show().html($tbl);
-           
+           */
+        //DESCOMENTAR
 
     })
     .fail(function( jqxhr, textStatus, error ) {
@@ -68,7 +72,7 @@ function eliminar(btn){
         var posting = $.post( "/contactos/eliminar", {valor: valor, peticion: "eliminar", _token:token});
         posting.done(function( data ) {
             //alert(data);
-            busqueda();
+           // busqueda();
         });
      //$(btn).parent('tr').fadeOut();
     }            
