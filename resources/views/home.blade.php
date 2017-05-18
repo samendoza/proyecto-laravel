@@ -41,6 +41,10 @@
                 $(document).on("click", ".rbCategoria", busqueda);
                 $(document).on("submit", ".fmAddCont", agregar);
                 $(document).on("submit", ".fmEditar", editarPerfil);
+                $(document).on('click', '.borrar', function (event) {
+                    event.preventDefault();
+                    $(this).closest('tr').fadeOut();
+                });
 
                 //$(document).on("click", "#agregar", busqueda);
 
