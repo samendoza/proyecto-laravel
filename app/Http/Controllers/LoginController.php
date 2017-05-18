@@ -156,7 +156,7 @@ class LoginController extends Controller {
 						->where('id', '=', $usuario)
 						->where('pass','=',$request->pass)
 						->get();
-			//dd(DB::getQueryLog());
+		//dd(DB::getQueryLog());
 		if(count((array)$user)>0){
 			$rutaImg="";
 			foreach($user as $usuario)
