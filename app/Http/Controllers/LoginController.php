@@ -89,9 +89,10 @@ class LoginController extends Controller {
 		//$users = DB::table('usuarios')->select('usuario')->where('usuario','=','saul')->where('pass','=','123')->get();
 		//echo $request->usuario;
 		
-		$user = Usuario::find($request->usuario);
-		if($user != null)
-			$user = $user->where('pass', '=',$request->pass)->get();
+		//$users = Usuario::find($request->usuario)->where('pass', '=',$request->pass)->get();
+		$user = DB::table('usuarios')->select('*')->where('id', '=', $request->usuario)->where('pass','=',$request->pass)->get();
+		/*if($user != null)
+			$user = $user->where('pass', '=',$request->pass)->get();*/
 
 		
 		if(count((array)$user)>0){
@@ -142,22 +143,38 @@ class LoginController extends Controller {
     }
 
 	public function editar(Request $request){
+		//DB::enableQueryLog();
+
+
+		$file = $request->file('foto');
+		$destinationPath = 'img/fotosUsuario/';
+
 		$usuario = session('usuario'); //usando el helper
-		$user = Usuario::find($usuario);
-		if($user != null)
-			$user = $user->where('pass', '=',$request->pass)->get();
-
-		
+		$nombre = $usuario = session('usuario');
+			
+		$user = DB::table('usuarios')->select('*')
+						->where('id', '=', $usuario)
+						->where('pass','=',$request->pass)
+						->get();
+			//dd(DB::getQueryLog());
 		if(count((array)$user)>0){
-			if($request->passN == $request->pass2N)
+			$rutaImg="";
+			foreach($user as $usuario)
+				$rutaImg = $usuario->fotoUsuario;
+			if($request->passN == $request->pass2N){
 				DB::table('usuarios')
-            		->where('id', $usuario)
-            		->update(['pass' => $request->passN]);
+					->where('id', $usuario->id )
+					->update(['pass' => $request->passN]);
+				$file->move($destinationPath,$rutaImg);
+				//dd(DB::getQueryLog());
 				return "1";
+			}
+			else 
+				return "3";
 		}
-
 		else
-			return "2";
+			return "4";
+		//}
 	}
 
 

@@ -1,18 +1,60 @@
 /*************************************************************************************************************************
+*Funcion impTabla(dato): funcion que imprime una tabla con datos json
+*parametros : datos [tipo json]
+/*************************************************************************************************************************/
+function impTabla(datos){
+     $("#respuesta").show().html(datos);
+}
+
+/*************************************************************************************************************************
 *Funcion busqueda():realiza una peticion ajax con el metodo get para mostrar los contactos que cumplan con los criterios 
 *                   especificados en la busqueda
 /*************************************************************************************************************************/
 function busqueda(){
+    $('#respuesta').empty();
     var busqueda = $(":input[name='busqueda']").val();
     var categoria = $("input[name='categoria']:checked").val();
-    var posting = $.get( "/contactos", {busqueda:busqueda, categoria:categoria, peticion: "buscar"});
-    posting.done(function( data ) {
+    //var posting = $.get( "/contactos", {busqueda:busqueda, categoria:categoria, peticion: "buscar"});
+    /*posting.done(function( data ) {
         alert(data);
         var resp ="";
-        
-        $("#respuesta").show().html( data);
+        impTabla(data);
+    });*/
+
+    $.getJSON( "/contactos", {busqueda:busqueda, categoria:categoria, peticion: "buscar"} )
+    .done(function( json ) {
+        console.log( "JSON Data: " + json[ 0 ].nombre );
+         $.each(json, function(i, contacto) {
+            var $tr = $('<tr>').append(
+                $('<td>').text(contacto.nombre),
+                $('<td>').text(contacto.email),
+                $('<td>').text(contacto.tel),
+                $('<td>').text(contacto.cel),
+                $('<td>').text(contacto.direccion),
+                $('<td>').append($('<img>').attr('src',contacto.fotoContacto)
+                                           .css('height','60px')
+                                           .css('width', '60px')),
+                $('<td>').append($('<button>').val(contacto.idContacto)
+                                              .attr('onclick', 'eliminar(this)')
+                                              .text("Eliminar contacto"))
+            ); 
+            var $tbl = $tr.appendTo('#respuesta');
+           // console.log($tr.wrap('<p>').html());
+        });
+         $("#respuesta").show().html($tbl);
+           
+
+    })
+    .fail(function( jqxhr, textStatus, error ) {
+        var err = textStatus + ", " + error;
+        console.log( "Request Failed: " + err );
     });
+
+    
+
 }
+
+
 
 /*************************************************************************************************************************
 *Funcion busqueda():realiza una peticion ajax con el metodo post para eliminar el contacto al que se le hizo clic
