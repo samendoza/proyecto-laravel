@@ -85,11 +85,45 @@ class ContactosController extends Controller {
 	}
 
 	public function busqueda(Request $req){
-
+		DB::enableQueryLog();
+		$busqueda="";
 		$usuario = session('usuario'); //usando el helper
-		$contactos = DB::table('contactos')->where('idUsuario', $usuario)->get();
+		$busqueda = $req -> busqueda;
+		$contactos = null;
+		switch($req->categoria){
+			case "nombre":
+				//$busqueda = $req -> busqueda;
+				//$contactos = DB::table('contactos')->where('idUsuario', $usuario)->where()->get();
+				$contactos = DB::table('contactos')
+							->join('usuarios', 'usuarios.id', '=', 'contactos.idUsuario')
+							->select('contactos.*')
+							->where('contactos.idUsuario', '=', $usuario)
+							->where('contactos.nombre', 'like', '%'.$busqueda.'%')
+							->get();
+				break;
+			case "email":
+				$contactos = DB::table('contactos')
+							->join('usuarios', 'usuarios.id', '=', 'contactos.idUsuario')
+							->select('contactos.*')
+							->where('contactos.idUsuario', '=', $usuario)
+							->where('contactos.email', 'like', '%'.$busqueda.'%')
+							->get();
+				break;
+			case "cel":
+				$contactos = DB::table('contactos')
+							->join('usuarios', 'usuarios.id', '=', 'contactos.idUsuario')
+							->select('contactos.*')
+							->where('contactos.idUsuario', '=', $usuario)
+							->where('contactos.cel', 'like', '%'.$busqueda.'%')
+							->get();
+				break;
+		}
 		
-		$resp = "<table><tr><td>Nombre</td><td>Correo</td><td>Tel fijo</td><td>Celular</td><td>Dirección</td><td>Foto</td><td>Eliminar</td></tr>";
+
+
+		//$contactos = DB::table('contactos')->where('idUsuario', $usuario)->get();
+		//dd(DB::getQueryLog());
+		/*$resp = "<table><tr><td>Nombre</td><td>Correo</td><td>Tel fijo</td><td>Celular</td><td>Dirección</td><td>Foto</td><td>Eliminar</td></tr>";
 
             foreach($contactos as $contacto){
                 //while($row = mysqli_fetch_assoc($result)){
@@ -106,7 +140,10 @@ class ContactosController extends Controller {
 			}
                  $resp .= "</table>";
 		
-		return $resp;
+		return $resp;*/
+		
+		return $contactos;
+
 	}
 
 	public function eliminar(Request $req){
