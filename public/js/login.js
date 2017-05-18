@@ -29,7 +29,7 @@ function iniciaSesion(event){ //al dar clic en enviar:
         //Se puede tratar la información con la que responde el servidor
         //En este caso se envia la informacion de respuesta a un div
         posting.done(function( data ) {
-            alert(data);
+            //alert(data);
             //Caso 1: Sesion iniciada correctamente, se redirige al contenido
             //Caso 2: Error en usuario y/o contraseña
             //Caso 3: Algun campo vacio

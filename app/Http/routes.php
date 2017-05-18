@@ -17,7 +17,7 @@ Route::get('/', 'WelcomeController@index');
 
 Route::post('login', 'LoginController@inicio');
 Route::get('home', function(){
-	return view('home');
+	return view('layout');
 });
 
 
@@ -36,7 +36,10 @@ Route::get('/logout', function(){
 	return Redirect::action('WelcomeController@index');
 } );
 
-Route::post('/perfil/editar', 'LoginController@editar');
+Route::post('/edicion', 'LoginController@editar');
+Route::get('/edicion', function(){
+	return view('editarPerfil');
+});
 
 
 
