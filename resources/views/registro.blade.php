@@ -101,17 +101,17 @@
                 posting.done(function( data ) {
                     if(data == "1"){    
 
-                      /*  $("#avisoUsuario").show().text("El nombre de usuario está ocupado");
+                        $("#avisoUsuario").show().text("El nombre de usuario está ocupado");
                         if($( "#avisoUsuario" ).hasClass( "alert alert-success"))
                             $("#avisoUsuario").removeClass( "alert alert-success" );
                         $("#avisoUsuario").addClass( "alert alert-danger" );
-                        */
+                        
                     }
                     else if(data == "2"){
-                       /* $("#avisoUsuario").show().text("El nombre de usuario está disponible");
+                        $("#avisoUsuario").show().text("El nombre de usuario está disponible");
                         if($( "#avisoUsuario" ).hasClass( "alert alert-danger" ))
                             $("#avisoUsuario").removeClass( "alert alert-danger" );
-                        $("#avisoUsuario").addClass( "alert alert-success" );*/
+                        $("#avisoUsuario").addClass( "alert alert-success" );
                     }
                 });
             });

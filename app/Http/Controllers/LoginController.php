@@ -90,7 +90,12 @@ class LoginController extends Controller {
 		//echo $request->usuario;
 		
 		//$users = Usuario::find($request->usuario)->where('pass', '=',$request->pass)->get();
-		$user = DB::table('usuarios')->select('*')->where('id', '=', $request->usuario)->where('pass','=',md5($request->pass))->get();
+		
+		
+		//$user = DB::table('usuarios')->select('*')->where('id', '=', $request->usuario)->where('pass','=',md5($request->pass))->get();
+		$user = DB::select('call iniSesion(?,?)',array($request->usuario,md5($request->pass)));
+
+
 		/*if($user != null)
 			$user = $user->where('pass', '=',$request->pass)->get();*/
 

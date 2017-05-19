@@ -21,43 +21,53 @@ function busqueda(){
         impTabla(data);
     });*/
 
+    if(busqueda=='')
+        return 0;
+        
     $.getJSON( "/contactos", {busqueda:busqueda, categoria:categoria, peticion: "buscar"} )
     .done(function( json ) {
         $('#respuesta').empty();
-        var $tbl;
-        //DESCOMENTAR
-         
-        //console.log( "JSON Data: " + json[ 0 ].nombre );
-       var tr="";
 
-         $.each(json, function(i, contacto) {
-             if(i==0){
-                
+       if( $.isEmptyObject(json) ){
+            $("#respuesta").addClass( "alert alert-danger" ).text("No existen coincidencias para esa búsqueda");
+       }
+
+       else{
+            if($( "#respuesta" ).hasClass( "alert alert-danger" ))
+                $("#respuesta").removeClass( "alert alert-danger" );
+            var $tbl;
+            //DESCOMENTAR
+            
+            //console.log( "JSON Data: " + json[ 0 ].nombre );
+            var tr="";
+
+            $.each(json, function(i, contacto) {
+                if(i==0){
+                    
+                    tr = tr + '<tr style="border: 1px solid grey">'+
+                    '<td>Nombre</td>'+
+                    '<td>Email</td>'+
+                    '<td>Telefono</td>'+
+                    '<td>Celular</td>'+
+                    '<td>Direccion</td>'+
+                    '<td>Imagen</td>'+
+                    '<td>Eliminar contacto</td></tr>';
+                }
+
                 tr = tr + '<tr style="border: 1px solid grey">'+
-                '<td>Nombre</td>'+
-                '<td>Email</td>'+
-                '<td>Telefono</td>'+
-                '<td>Celular</td>'+
-                '<td>Direccion</td>'+
-                '<td>Imagen</td>'+
-                '<td>Eliminar contacto</td></tr>';
-             }
+                    '<td>'+contacto.nombre+'</td>'+
+                    '<td>'+contacto.email+'</td>'+
+                    '<td>'+contacto.tel+'</td>'+
+                    '<td>'+contacto.cel+'</td>'+
+                    '<td>'+contacto.direccion+'</td>'+
+                    '<td><img src = "'+contacto.fotoContacto+'" style = " height: 60px; width: 60px " </img></td>'+
+                    '<td><button value = "'+contacto.idContacto+' " onclick = "eliminar(this)" class = "borrar"> Eliminar contacto </button></td></tr>';
+            });
 
-             tr = tr + '<tr style="border: 1px solid grey">'+
-                '<td>'+contacto.nombre+'</td>'+
-                '<td>'+contacto.email+'</td>'+
-                '<td>'+contacto.tel+'</td>'+
-                '<td>'+contacto.cel+'</td>'+
-                '<td>'+contacto.direccion+'</td>'+
-                '<td><img src = "'+contacto.fotoContacto+'" style = " height: 60px; width: 60px " </img></td>'+
-                '<td><button value = "'+contacto.idContacto+' " onclick = "eliminar(this)" class = "borrar"> Eliminar contacto </button></td></tr>';
-        });
-
-        
-        $("#respuesta").show().html(tr);
-           
-        //DESCOMENTAR
-
+            $("#respuesta").show().html(tr);
+            
+            //DESCOMENTAR
+       }
     })
     .fail(function( jqxhr, textStatus, error ) {
         var err = textStatus + ", " + error;
@@ -140,7 +150,7 @@ function agregar(event){
         },
         //una vez finalizado correctamente
         success: function(data){
-            alert(data);
+            //alert(data);
             busqueda();
 
             //limpiar el formulario
