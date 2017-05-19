@@ -26,6 +26,7 @@
     <script>
         $(document).ready(function(){
             
+           
 
             $("#cerrarSesion").click(function(){
                 alert("Salir sesion");
@@ -59,6 +60,12 @@
                 event.preventDefault();
                 $(this).closest('tr').fadeOut();
             });
+
+            var posting = $.get( "/imagen", {});
+            posting.done(function( data ) {
+                $("#imgPerfil").attr("src", data);
+            });
+
         });
     </script>
   </head>
@@ -88,6 +95,9 @@
             <li><a href="/adicion">Agregar contactos</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+
+          
+
            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Perfil<span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -96,7 +106,7 @@
                 <li><a href="/logout">Cerrar sesión</a></li>
               </ul>
             </li>
-           
+           <li class="dropdown"> <a href="#"><img id="imgPerfil" style="height: 30px; width: 30px"></img></a> </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

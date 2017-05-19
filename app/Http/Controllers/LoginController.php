@@ -181,5 +181,8 @@ class LoginController extends Controller {
 		//}
 	}
 
+	public function imagen(){
+		return session('img');
+	}
 
 }

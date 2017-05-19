@@ -24,6 +24,9 @@ Route::get('home', function(){
 });
 
 
+Route::get('/imagen', 'LoginController@imagen');
+
+
 Route::get('/contactos', 'ContactosController@busqueda');
 Route::get('/busqueda', function(){
 	if(session('usuario')=='')
@@ -62,7 +65,6 @@ Route::get('/edicion', function(){
         return redirect('/');
 	return view('editarPerfil');
 });
-
 
 
 //Route::post('/registro/{user}', 'LoginController@verificarUsuario');
