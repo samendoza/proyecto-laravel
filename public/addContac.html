@@ -1,41 +1,16 @@
-<br>
-<div id="fmAgregar" "> 
-    <form enctype="multipart/form-data" method="Post" action="contactos/agregar" class="fmAddCont">
-        Nombre: <input type="text" name="nombre" required> </input><br>
-        E-mail: <input type="text" name="email" required> </input><br>
-        Tel. fijo: <input type="text" name="tel" required> </input><br>
-        Celular: <input type="text" name="cel" required> </input><br>
-        Dirección <input type="text" name="dir" required> </input><br>
-        Agregar una imagen: <input type="file" name="foto" id="foto"></input><br>
-        <input type="submit" value="Agregar contacto" required> </input>
+@extends('layout')
+    @section('container')
+    <div id="fmAgregar" "> 
+        <form enctype="multipart/form-data" method="Post" action="contactos/agregar" class="fmAddCont">
+            Nombre: <input type="text" name="nombre" required> </input><br>
+            E-mail: <input type="text" name="email" required> </input><br>
+            Tel. fijo: <input type="text" name="tel" required> </input><br>
+            Celular: <input type="text" name="cel" required> </input><br>
+            Dirección <input type="text" name="dir" required> </input><br>
+            Agregar una imagen: <input type="file" name="foto" id="foto"></input><br>
+            <input type="submit" value="Agregar contacto" required> </input>
 
-    </form>
-    <div class="messages"> </div>
-
-     <div class="panel-body">
-                {!! Form::open(['route' => '/registrar', 'method' => 'post']) !!}
-                  
-                  <div class="form-group">
-                      {!! Form::label('full_name', 'Usuario') !!}
-                      {!! Form::text('full_name', null, ['class' => 'form-control' , 'required' => 'required']) !!}
-                  </div>
-                  <div class="form-group">
-                      {!! Form::label('email', 'E-Mail') !!}
-                      {!! Form::email('email', null, ['class' => 'form-control' , 'required' => 'required']) !!}
-                  </div>          
-                  <div class="form-group">
-                      {!! Form::label('address', 'Direccion') !!}
-                      {!! Form::text('address', null, ['class' => 'form-control' , 'required' => 'required']) !!}
-                  </div>
-                  <div class="form-group">
-                      {!! Form::label('phone_number', 'Telefono') !!}
-                      {!! Form::text('phone_number', null, ['class' => 'form-control' ]) !!}
-                  </div>
-                  
-                  <div class="form-group">
-                      {!! Form::submit('Enviar', ['class' => 'btn btn-success ' ] ) !!}
-                  </div>
-                {!! Form::close() !!}
-              </div>
-
-</div>
+        </form>
+        <div class="messages"> </div>
+    </div>
+@endsection

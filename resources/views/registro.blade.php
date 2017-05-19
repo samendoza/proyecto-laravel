@@ -76,6 +76,21 @@
 
             $("#usuarioR").keyup(function(){
                 $("#avisoUsuario").show();
+                /******************************************************************************
+                var exp = /^[!"·$%&/()=?¿*^¨Ç:><]+$/;
+                var cont = 0;
+                if(exp.test(usuario))
+                    alert("invalido");
+                else{
+                  //  if($( "#avisoUsuario" ).hasClass( "alert alert-success"))
+                    //        $("#avisoUsuario").removeClass( "alert alert-success" );
+                    $( "#avisoUsuario" ).text("El nombre solo puede incluir letras, numeros '-' y '_'");
+                    alert("valido");
+                }
+                /******************************************************************************/
+
+
+                
                 // alert($(this).val());
                 var usuario = $(":input[name='usuario']").val();
                 var token = $('meta[name="_token"]').attr('content');
@@ -86,22 +101,24 @@
                 posting.done(function( data ) {
                     if(data == "1"){    
 
-                        $("#avisoUsuario").show().text("El nombre de usuario está ocupado");
+                      /*  $("#avisoUsuario").show().text("El nombre de usuario está ocupado");
                         if($( "#avisoUsuario" ).hasClass( "alert alert-success"))
                             $("#avisoUsuario").removeClass( "alert alert-success" );
                         $("#avisoUsuario").addClass( "alert alert-danger" );
-                        
+                        */
                     }
                     else if(data == "2"){
-                            $("#avisoUsuario").show().text("El nombre de usuario está disponible");
-                            if($( "#avisoUsuario" ).hasClass( "alert alert-danger" ))
-                                $("#avisoUsuario").removeClass( "alert alert-danger" );
-                            $("#avisoUsuario").addClass( "alert alert-success" );
+                       /* $("#avisoUsuario").show().text("El nombre de usuario está disponible");
+                        if($( "#avisoUsuario" ).hasClass( "alert alert-danger" ))
+                            $("#avisoUsuario").removeClass( "alert alert-danger" );
+                        $("#avisoUsuario").addClass( "alert alert-success" );*/
                     }
                 });
             });
 
         });
+
+
         </script>
   </head>
 
@@ -111,10 +128,10 @@
 
 
     <div class="container">
-       <center>
+       
       <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron" style="margin-top:50px; width:400px">
-
+      <div class="jumbotron" style="margin-top:100px; width:400px; margin: 0 auto;">
+        <h2> Registro de usuario </h2>
     <form method="POST" action="/registrar" id="fmregistro" class="fmregistro" enctype="multipart/form-data">
 
     <div class="form-group"> <!-- Usuario -->
@@ -145,7 +162,7 @@
 </form>
         
       </div>
-        </center>
+    
     </div> <!-- /container -->
 
 

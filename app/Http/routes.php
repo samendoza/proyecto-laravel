@@ -17,11 +17,27 @@ Route::get('/', 'WelcomeController@index');
 
 Route::post('login', 'LoginController@inicio');
 Route::get('home', function(){
-	return view('layout');
+    if(session('usuario')=='')
+        return redirect('/');
+	else
+		return view('home');
 });
 
 
 Route::get('/contactos', 'ContactosController@busqueda');
+Route::get('/busqueda', function(){
+	if(session('usuario')=='')
+        return redirect('/');
+	return view('busquedaContactos');
+});
+
+Route::get('/adicion', function(){
+	if(session('usuario')=='')
+        return redirect('/');
+	return view('agregarContactos');
+});
+
+
 Route::post('/contactos/eliminar', 'ContactosController@eliminar');
 Route::post('/contactos/agregar', 'ContactosController@agregar');
 Route::get('/registro', function(){
@@ -31,13 +47,19 @@ Route::get('/registro', function(){
 Route::post('/verificar','LoginController@verificar');
 Route::post('/registrar', 'LoginController@registrar');
 Route::get('/logout', function(){
+	session_start(); 
+    session_unset();
+    session_destroy(); 
 	Session::flush(); // removes all session data
 	session()->regenerate();
+	//Auth::logout();
 	return Redirect::action('WelcomeController@index');
 } );
 
 Route::post('/edicion', 'LoginController@editar');
 Route::get('/edicion', function(){
+	if(session('usuario')=='')
+        return redirect('/');
 	return view('editarPerfil');
 });
 

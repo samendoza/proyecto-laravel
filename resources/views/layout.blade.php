@@ -55,7 +55,6 @@
             $(document).on("keyup",".busqueda", busqueda);
             $(document).on("click", ".rbCategoria", busqueda);
             $(document).on("submit", ".fmAddCont", agregar);
-            $(document).on("submit", ".fmEditar", editarPerfil);
             $(document).on('click', '.borrar', function (event) {
                 event.preventDefault();
                 $(this).closest('tr').fadeOut();
@@ -65,7 +64,11 @@
   </head>
 
   <body>
-
+    <?php
+      session_start();
+      if(!isset($_SESSION['login']))
+        header('Location : /');
+    ?>
     <!-- Static navbar -->
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
@@ -76,13 +79,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#">Agenda electrónica</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li ><a href="/home">Home</a></li><!--class="active" -->
+            <li><a href="/busqueda">Buscar contactos</a></li>
+            <li><a href="/adicion">Agregar contactos</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
            <li class="dropdown">
@@ -106,7 +109,7 @@
       <div class="jumbotron">
 
         @yield('container')
-        
+  
       </div>
 
     </div> <!-- /container -->

@@ -90,13 +90,17 @@ class LoginController extends Controller {
 		//echo $request->usuario;
 		
 		//$users = Usuario::find($request->usuario)->where('pass', '=',$request->pass)->get();
-		$user = DB::table('usuarios')->select('*')->where('id', '=', $request->usuario)->where('pass','=',$request->pass)->get();
+		$user = DB::table('usuarios')->select('*')->where('id', '=', $request->usuario)->where('pass','=',md5($request->pass))->get();
 		/*if($user != null)
 			$user = $user->where('pass', '=',$request->pass)->get();*/
 
 		
 		if(count((array)$user)>0){
+			session_start();
+			$_SESSION['login'] = true;
 			session(['usuario' => $request->usuario]); //usando el helper
+			session(['img' => $user[0]->fotoUsuario]); //usando el helper
+			//Auth::loginUsingId($request->usuario);
 			return "1";
 		}
 
@@ -118,7 +122,7 @@ class LoginController extends Controller {
         	DB::table('usuarios')->insert(
 				[
 					'id'	 => $request->usuario,
-					'pass' 	     => $request->pass,
+					'pass' 	     => md5($request->pass),
 					'fotoUsuario'=> $nuevaDireccion
 				]
 			);
@@ -154,7 +158,7 @@ class LoginController extends Controller {
 			
 		$user = DB::table('usuarios')->select('*')
 						->where('id', '=', $usuario)
-						->where('pass','=',$request->pass)
+						->where('pass','=',md5($request->pass))
 						->get();
 		//dd(DB::getQueryLog());
 		if(count((array)$user)>0){
@@ -164,7 +168,7 @@ class LoginController extends Controller {
 			if($request->passN == $request->pass2N){
 				DB::table('usuarios')
 					->where('id', $usuario->id )
-					->update(['pass' => $request->passN]);
+					->update(['pass' => md5($request->passN)]);
 				$file->move($destinationPath,$rutaImg);
 				//dd(DB::getQueryLog());
 				return "1";

@@ -40,7 +40,7 @@ function editarPerfil(event){
                 else if(data == "3"){
                     alert("La contraseña nueva no coincide");
                 }
-                else{
+                else if(data == "4"){
                     alert("Los datos de sesion no son corectos");
                 }
                     
