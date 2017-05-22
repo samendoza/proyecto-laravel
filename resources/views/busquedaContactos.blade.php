@@ -15,4 +15,13 @@
             </table>
              <center>
     </div>
+
+    <table width="100%">
+    <tr>
+        <td valign="top" width="50%">
+        <div id="myGrid" style="width:600px;height:500px;"></div>
+        </td>
+    </tr>
+    </table>
+
 @endsection

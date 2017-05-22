@@ -12,6 +12,21 @@
     <meta name="_token" content="{{ csrf_token() }}">
     
     <link rel="icon" href="../../favicon.ico">
+    <!--Slick grid-->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="slick/slick.grid.css" type="text/css"/>
+    <link rel="stylesheet" href="slick/css/smoothness/jquery-ui-1.8.16.custom.css" type="text/css"/>
+    <link rel="stylesheet" href="css/example.css" type="text/css"/>
+    <!--<link rel="stylesheet" href="examples.css" type="text/css"/>-->
+
+    <script src="slick/lib/jquery.event.drag-2.2.js"></script>
+    <script src="slick/slick.core.js"></script>
+    <script src="slick/slick.grid.js"></script>
+
+
+    <!-- fin slick grid -->
+
+
 
     <title> Agenda electronica </title>
 
@@ -20,7 +35,7 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
     <script src="js/contacto.js"></script>
     <script src="js/perfil.js"></script>
     <script>
