@@ -3,7 +3,7 @@ function editarPerfil(event){
       //$("#fmEditar").submit(function(event){ //al dar clic en enviar:
 
         event.preventDefault(); //previene que el formulario se procese como lo hace normalmente 
-        var token = $(':input[name="_token"]').val();
+        var token = $('meta[name="_token"]').attr('content');
         var formData = new FormData($(".fmEditar")[0]);
         formData.append("_token",token);
         formData.append("peticion","modificar");
