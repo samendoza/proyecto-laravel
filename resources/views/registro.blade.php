@@ -20,113 +20,22 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="js/contacto.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/perfil.js"></script>
+    <script src="js/validaciones.js"></script>
+    <script src="js/registro.js"></script>
+
     <script>
         $(document).ready(function(){ //hasta que la pagina este completamente cargada
-
-            $("#fmregistro").submit(function(event){ //al dar clic en enviar:
-                event.preventDefault(); //previene que el formulario se procese como lo hace normalmente 
-                var formData = new FormData($(".fmregistro")[0]);
-                var token = $('meta[name="_token"]').attr('content');
-                formData.append("_token",token);
-
-                formData.append("peticion","agregar");
-
-                var $form = $( this ), // crea una variable form que apunta al formulario
-                                    
-                url = $form.attr( "action" );
-                
-                    $.ajax({
-                    url: url,  
-                    type: 'POST',
-                    // Form data
-                    //datos del formulario
-                    data: formData,
-                    //necesario para subir archivos via ajax
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    //mientras enviamos el archivo
-                    beforeSend: function(){
-                        message = $("<span class='before'>Subiendo la imagen, por favor espere...</span>");
-                        //showMessage(message)        
-                    },
-                    //una vez finalizado correctamente
-                    success: function(data){
-                        alert(data);
-                        if(data == "1"){
-                            alert("Usuario registrado con exito");
-                            var url = "index.php"; 
-                            $(location).attr('href',url);
-                        }
-                        else if(data == "2")
-                            alert("No podemos registrar su usuario");
-                        else
-                            alert("Las contraseñas no coinciden");
-                            message = $("<span class='success'>La imagen ha subido correctamente.</span>");
-                    },
-                    //si ha ocurrido un error
-                    error: function(){
-                        message = $("<span class='error'>Ha ocurrido un error.</span>");
-                    }
-                });
-            });
-
-            $("#usuarioR").keyup(function(){
-                $("#avisoUsuario").show();
-                /******************************************************************************
-                var exp = /^[!"·$%&/()=?¿*^¨Ç:><]+$/;
-                var cont = 0;
-                if(exp.test(usuario))
-                    alert("invalido");
-                else{
-                  //  if($( "#avisoUsuario" ).hasClass( "alert alert-success"))
-                    //        $("#avisoUsuario").removeClass( "alert alert-success" );
-                    $( "#avisoUsuario" ).text("El nombre solo puede incluir letras, numeros '-' y '_'");
-                    alert("valido");
-                }
-                /******************************************************************************/
-
-
-                
-                // alert($(this).val());
-                var usuario = $(":input[name='usuario']").val();
-                var token = $('meta[name="_token"]').attr('content');
-                var posting = $.post( "/verificar", {usuario: usuario, _token:token});
-                
-
-
-                posting.done(function( data ) {
-                    if(data == "1"){    
-
-                        $("#avisoUsuario").show().text("El nombre de usuario está ocupado");
-                        if($( "#avisoUsuario" ).hasClass( "alert alert-success"))
-                            $("#avisoUsuario").removeClass( "alert alert-success" );
-                        $("#avisoUsuario").addClass( "alert alert-danger" );
-                        
-                    }
-                    else if(data == "2"){
-                        $("#avisoUsuario").show().text("El nombre de usuario está disponible");
-                        if($( "#avisoUsuario" ).hasClass( "alert alert-danger" ))
-                            $("#avisoUsuario").removeClass( "alert alert-danger" );
-                        $("#avisoUsuario").addClass( "alert alert-success" );
-                    }
-                });
-            });
-
+            $("#fmregistro").submit(registrarUsuario);
+            $("#usuarioR").keyup(usuarioDisponible);
+            $("#pass2").keyup(passCoinciden);
+            $("#foto").change(validarArchivo);
         });
-
-
-        </script>
+    </script>
   </head>
 
   <body>
-
-   
-
-
     <div class="container">
        
       <!-- Main component for a primary marketing message or call to action -->
@@ -136,23 +45,24 @@
 
     <div class="form-group"> <!-- Usuario -->
         <label for="usuarioR" class="control-label">Nombre de usuario</label>
-        <input type="text" class="form-control" id="usuarioR" name="usuario" placeholder="Usuario">
+        <input type="text" class="form-control" id="usuarioR" name="usuario" placeholder="Usuario" maxlength="15" minlength="4" required>
     </div>    
     <div id="avisoUsuario" style="display:none"></div>
     <div class="form-group"> <!-- Password -->
         <label for="pass" class="control-label">Contraseña</label>
-        <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña">
+        <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña" maxlength="15" minlength="4" required >
     </div>                    
                             
     <div class="form-group"> <!-- Password -->
         <label for="pass2" class="control-label">Repetir contraseña</label>
-        <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Repetir contraseña">
+        <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Repetir contraseña" maxlength="15" minlength="4" required>
+        <div id="avisoPass" style="display:none"></div>
     </div>    
     <input type="hidden" name="_token" value="{{csrf_token()}}">
 
     <div class="form-group">
         <label for="exampleInputFile">Elegir foto</label>
-        <input type="file" class="form-control-file" name='foto' id='foto' </input>
+        <input type="file" class="form-control-file" name='foto' id='foto' required>  </input>
     </div>
 
     <div class="form-group"> <!-- Submit Button -->

@@ -24,26 +24,46 @@ function iniciaSesion(event){ //al dar clic en enviar:
         url = $form.attr( "action" );
         
         // Se envia la peticion a la url junto con un objeto data, que puede ser un array {llave:valor}
-        var posting = $.post( url, {usuario: usuario, pass: pass, _token:token});
+        //var posting = $.post( url, {usuario: usuario, pass: pass, _token:token});
+
+        var person = {
+            usuario: usuario,
+            pass: pass,
+            _token:token
+        }
+
+        $.ajax({
+            url: url,
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                if(data=="1"){
+                    var url = "/home"; 
+                    $(location).attr('href',url);
+                }
+                else if(data == "2"){
+                    $("#avisoSes").show();
+                    $("#avisoSes").text("Usuario y/o contraseña incorrecto").css("color","red");
+                }
+                else{
+                    $("#avisoSes").show();
+                    $("#avisoSes").text("Algun campo vacio");
+                }
+            },
+            data: person
+        });
+
+
+
+
         
         //Se puede tratar la información con la que responde el servidor
         //En este caso se envia la informacion de respuesta a un div
-        posting.done(function( data ) {
+   //     posting.done(function( data ) {
             //alert(data);
             //Caso 1: Sesion iniciada correctamente, se redirige al contenido
             //Caso 2: Error en usuario y/o contraseña
             //Caso 3: Algun campo vacio
-            if(data=="1"){
-                var url = "/home"; 
-                $(location).attr('href',url);
-            }
-            else if(data == "2"){
-                $("#avisoSes").show();
-                $("#avisoSes").text("Usuario y/o contraseña incorrecto").css("color","red");
-            }
-            else{
-                $("#avisoSes").show();
-                $("#avisoSes").text("Algun campo vacio");
-            }
-        });
+            
+ //       });
 }
