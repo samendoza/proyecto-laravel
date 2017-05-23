@@ -36,18 +36,18 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     
+    <script src="js/validaciones.js"></script>
     <script src="js/contacto.js"></script>
     <script src="js/perfil.js"></script>
+ 
     <script>
         $(document).ready(function(){
 
             $("#editarPerfil").click(function(){
-
                 $("#contenedor").empty();
                 $("#contenedor").load("editarPerfil.html", manejoError);
             });
                
-
             $("#buscarCont").click(function(){
                 $("#contenedor").empty();
                 $("#contenedor").load("buscarContac.html", manejoError);
@@ -79,6 +79,15 @@
             posting.done(function( data ) {
                 $("#imgPerfil").attr("src", data);
             });
+
+            /********Para formulario de agregar()*********************/
+            $(document).on("focusout", "#nombre", nombreValido);
+            $(document).on("focusout", "#email", emailValido);
+            $(document).on("focusout", "#tel", telValido);
+            $(document).on("focusout", "#cel", celValido);
+            $(document).on("focusout", "#dir", dirValida);
+            $(document).on("change", "#foto", validarArchivo);
+            /*********************************************************/
 
         });
 

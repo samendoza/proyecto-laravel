@@ -211,6 +211,100 @@ function showMessage(message){
     $(".messages").html(message);
 }
 
+/*************************************************************************************************************************
+*Funcion nombreValido():realiza una peticion ajax con el metodo post agregar un nuevo contacto, junto con una 
+*                  foto para identificarlo
+*Parametros: nombre
+/*************************************************************************************************************************/
+
+function nombreValido(){
+    var nombre = $("#nombre").val();
+    var nombreValido = validarNombre(nombre);
+
+    if(!nombreValido)
+        alerta($("#nombreAlerta"), "Nombre");
+    else    
+        $("#nombreAlerta").hide();
+}
+
+
+/*************************************************************************************************************************
+*Funcion emailValido():realiza una peticion ajax con el metodo post agregar un nuevo contacto, junto con una 
+*                  foto para identificarlo
+*Parametros: email->String
+/*************************************************************************************************************************/
+function emailValido(){
+    var email = $("#email").val();
+    var emailValido = validarEmail(email);
+
+    if(!emailValido)
+        alerta($("#emailAlerta"), "Email");
+    else
+        $("#emailAlerta").hide();
+}
+
+
+function telValido(){
+    var tel = $("#tel").val();
+    var telValido = validarTel(tel);
+
+    if(!telValido)
+        alerta($("#telAlerta"), "Tel");
+    else
+        $("#telAlerta").hide();
+}
+
+function celValido(){
+    var cel = $("#cel").val();
+    var celValido = validarCel(cel);
+
+    if(!celValido)
+        alerta($("#celAlerta"), "Celular");
+    else    
+        $("#celAlerta").hide();
+}
+
+function dirValida(){
+    var dir = $("#dir").val();
+    var dirValido = validarDir(dir);
+
+    if(!dirValido)
+        alerta($("#dirAlerta"),"Direccion");
+    else
+        $("#dirAlerta").hide();
+}
+
+function alerta(elemento, msj){
+    elemento.show().text(msj+ " no valido").addClass( "alert alert-danger" );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  /* var $tr = $('<tr>').append(
                 $('<td>').text(contacto.nombre),

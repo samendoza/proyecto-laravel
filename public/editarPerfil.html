@@ -4,22 +4,22 @@
 
             <div class="form-group"> <!-- Usuario -->
                 <label for="pass" class="control-label">Contraseña actual</label>
-                <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña">
+                <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña" maxlength="15">
             </div>    
 
            <div class="form-group"> <!-- Password -->
                 <label for="pass" class="control-label">Contraseña nueva</label>
-                <input type="password" class="form-control" id="passN" name="passN" placeholder="Contraseña nueva">
+                <input type="password" class="form-control" id="passN" name="passN" placeholder="Contraseña nueva" maxlength="15">
             </div>
 
             <div class="form-group"> <!-- Password2 -->
                 <label for="pass2" class="control-label">Repetir contraseña nueva</label>
-                <input type="password" class="form-control" id="pass2N" name="pass2N" placeholder="Repetir contraseña nueva">
+                <input type="password" class="form-control" id="pass2N" name="pass2N" placeholder="Repetir contraseña nueva" maxlength="15">
             </div>    
 
             <div class="form-group">
                 <label for="foto">Elegir foto</label>
-                <input type="file" class="form-control-file" name='foto' id='foto' </input>
+                <input type="file" class="form-control-file" name='foto' id='foto'> </input>
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
             </div>
 
